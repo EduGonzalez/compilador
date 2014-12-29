@@ -1,0 +1,87 @@
+<?page title="Mantenimiento de Sitios" contentType="text/html;charset=UTF-8"?>
+<?component name="Menu" macroURI="/MacroMenu.zul"?>
+<zk>
+    <Menu/>
+    
+<window id="modalRutaAdd" title="Agregar Nueva Ruta" border="normal"
+        height="670px" position="center,center" closable="true"
+        action="show: slideDown;hide: slideUp" apply="org.zkoss.bind.BindComposer,
+       Controller.EmpleadorCargosDialog" 
+        viewModel="@id('vm') @init('UIVM.RutaVM')">
+
+    <vlayout>
+ 
+    <grid>
+        <rows>
+            <row>
+              Nombre:  <textbox  value="@bind(vm.rutaNombre)" width="150px"  /> 
+            </row>
+            <row>
+            Descripcion: <textbox value="@bind(vm.descripcion)" width="150px"   />
+            </row>
+           
+        </rows>
+    </grid>
+
+<window id="sitio" title="Agregar Sitios" border="normal" apply="org.zkoss.bind.BindComposer, Controller.ModalDialogSitiosAdd" 
+            viewModel="@id('vm') @init('UIVM.SitioVM')" width="1200px" height="500PX">  
+                <groupbox height="100px" width="35%">
+                <space />
+                <label value="Numero Sitios" />
+                <space/>
+                <space/> 
+                 <textbox id="FiltroSitio" width="310px"  cols="50" value="@bind(vm.sitioNombre)" onChange = "@command('doFilter')" instant="true"/> 
+
+            </groupbox>
+             <listbox id="ListaSitios" height="300px" model="@load(vm.sitiolist)" selectedItem="@bind(vm.seleccionado)" >
+                        
+                <listhead sizable="true">
+                    <listheader label="Id" width="140px" sort="auto" /> <listheader label="Nombre Sitio" sort="auto"/>
+                    <listheader label="Direccion" sort="auto"/>  <listheader label="Latitud" sort="auto"/>
+                    <listheader label="Longitud" sort="auto"/>   <listheader label="Telefono" sort="auto"/>
+                </listhead>
+
+                <template name="model" var="p1">
+                    <listitem>
+                        <listcell label="@load(p1.id)" />
+                        <listcell label="@load(p1.nombre)" /> 
+                        <listcell label="@load(p1.direccion)" /> 
+                        <listcell label="@load(p1.latitud)" />
+                        <listcell label="@load(p1.longitud)" /> 
+                        <listcell label="@load(p1.telefono)" /> 
+                    </listitem>
+                </template>
+            </listbox>
+         <button id="aceptar" label="Aceptar" onClick="@global-command('GuardarNuevoSitioRuta')" width="100px" height="35px" image="/img/16x16/accept.png"/>
+        
+</window>
+    </vlayout>
+   
+
+    <button id="aceptar" label="Aceptar" onClick="@global-command('GuardarNuevaRuta')" width="100px" height="35px" image="/img/16x16/accept.png"/>
+    <button id="Rutas" label="Rutas" href="Ruta.zul" width="100px" height="35px" />
+  
+ <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map_canvas {
+       height: 75%;
+    }
+
+    @media print {
+      html, body {
+         height:75%;
+      }
+
+      #map_canvas {
+         height: 75%;
+      }
+    }
+  </style>
+  
+  </window>
+     </zk>

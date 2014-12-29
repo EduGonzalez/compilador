@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2014 10:21:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Foto" table="foto" catalog="tecnologiazk">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="eventoId" type="java.lang.Long">
+            <column name="evento_id" />
+        </property>
+        <property name="sitioId" type="java.lang.Long">
+            <column name="sitio_id" />
+        </property>
+        <property name="promocionId" type="java.lang.Long">
+            <column name="promocion_id" />
+        </property>
+        <property name="rutaTuristicaId" type="java.lang.Long">
+            <column name="ruta_turistica_id" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="imagen" />
+        </property>
+    </class>
+</hibernate-mapping>

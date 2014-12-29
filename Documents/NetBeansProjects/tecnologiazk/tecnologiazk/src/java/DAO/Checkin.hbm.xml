@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2014 10:21:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Checkin" table="checkin" catalog="tecnologiazk">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="eventoId" type="java.lang.Long">
+            <column name="evento_id" />
+        </property>
+        <property name="sitioId" type="java.lang.Long">
+            <column name="sitio_id" />
+        </property>
+        <property name="usuarioId" type="java.lang.Long">
+            <column name="usuario_id" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

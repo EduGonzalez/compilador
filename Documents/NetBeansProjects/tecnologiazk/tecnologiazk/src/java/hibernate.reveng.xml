@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="tecnologiazk"/>
+  <table-filter match-name="rol_usuario"/>
+  <table-filter match-name="comentario_sitio"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="rol_usuario_usuario"/>
+  <table-filter match-name="categoria_sitio"/>
+  <table-filter match-name="calificacion_ruta_turistica"/>
+  <table-filter match-name="ruta_turistica"/>
+  <table-filter match-name="promocion"/>
+  <table-filter match-name="horario_sitio"/>
+  <table-filter match-name="dia"/>
+  <table-filter match-name="sitio_ruta_turistica"/>
+  <table-filter match-name="comentario_ruta_turistica"/>
+  <table-filter match-name="evento_categoria_evento"/>
+  <table-filter match-name="sitio_categoria_sitio"/>
+  <table-filter match-name="checkin"/>
+  <table-filter match-name="sitio"/>
+  <table-filter match-name="evento"/>
+  <table-filter match-name="telefono_sitio"/>
+  <table-filter match-name="calificacion_sitio"/>
+  <table-filter match-name="categoria_evento"/>
+  <table-filter match-name="sitio2"/>
+  <table-filter match-name="foto"/>
+  <table-filter match-name="auditoria"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,60 @@
+<?page title="Carga de sitios" contentType="text/html;charset=UTF-8"?>
+<?component name="Menu" macroURI="/MacroMenu.zul"?>
+<zk >
+<Menu/>
+<window id="sitio" title="Sitios" border="normal" apply="org.zkoss.bind.BindComposer, Controller.ModalDialogSitiosAdd" 
+            viewModel="@id('vm') @init('UIVM.SitioVM')">  
+
+    <div>
+        <div>
+            
+        </div>
+       <!-- <separator>-->
+            <groupbox height="40px" width="35%">
+                <space />
+                <label value="Numero Sitios" />
+                <space />
+                <space />
+                <textbox id="FiltroSitio" width="310px" cols="50" value="@bind(vm.sitioNombre)" onChange = "@command('doFilter')" instant="true"/> 
+                <space />
+                <space />
+           
+                <space spacing="20px" />
+                <space spacing="20px" />
+            </groupbox>
+        
+            <listbox id="ListaSitios" height="470px" model="@load(vm.sitiolist)" selectedItem="@bind(vm.seleccionado)" >
+                        
+                <listhead sizable="true">
+                    <listheader label="Id" width="140px" sort="auto" />
+                    <listheader label="Nombre Sitio" sort="auto"/>
+                    <listheader label="Direccion" sort="auto"/>
+                    <listheader label="Latitud" sort="auto"/>
+                    <listheader label="Longitud" sort="auto"/>
+                    <listheader label="Telefono" sort="auto"/>
+                </listhead>
+                <template name="model" var="p1">
+                    <listitem>
+                        <listcell label="@load(p1.id)" />
+                        <listcell label="@load(p1.nombre)" /> 
+                        <listcell label="@load(p1.direccion)" /> 
+                        <listcell label="@load(p1.latitud)" />
+                        <listcell label="@load(p1.longitud)" /> 
+                        <listcell label="@load(p1.telefono)" /> 
+                        
+                    </listitem>
+                </template>
+            </listbox> 
+            <box  orient="horizontal">
+                <button id="SitioADD"  label="Agregar" href="SitioAdd.zul" image="/img/16x16/application_form_add.png" width="100px" height="35px"/>
+                <space />
+                <button label="Eliminar" image="/img/16x16/application_form_delete.png" width="100px" height="35px" onClick="@command('EliminarSitio')" />
+                <space />
+                <button id="editar" label="Editar" image="/img/16x16/application_form_edit.png" width="100px" height="35px" onClick="@global-command('showModalEditar')" />
+                
+         
+            </box>
+    </div>
+        
+</window>
+</zk>

@@ -1,0 +1,57 @@
+<?page title="Carga de sitios" contentType="text/html;charset=UTF-8"?>
+<?component name="Menu" macroURI="/MacroMenu.zul"?>
+<zk >
+<Menu/>
+<window id="evento" title="Eventos" border="normal" apply="org.zkoss.bind.BindComposer, Controller.ModalDialogSitiosAdd" 
+            viewModel="@id('vm') @init('UIVM.EventoVM')">  
+
+    <div>
+        <div>
+            
+        </div>
+       <!-- <separator>-->
+            <groupbox height="40px" width="35%">
+                <space />
+                <label value="Nombre de Eventos" />
+                <space />
+                <space />
+                <textbox id="FiltroEvento" width="310px" cols="50" value="@bind(vm.eventoNombre)" onChange = "@command('doFilter')" instant="true"/> 
+                <space />
+                <space />
+           
+                <space spacing="20px" />
+                <space spacing="20px" />
+            </groupbox>
+        
+            <listbox id="ListaEvents" height="470px" model="@load(vm.eventolist)" selectedItem="@bind(vm.seleccionado)" >
+                        
+                <listhead sizable="true">
+                    <listheader label="Id" width="140px" sort="auto" />
+                    <listheader label="Nombre Sitio" sort="auto"/>
+                    <listheader label="Descripcion" sort="auto"/>
+                    <listheader label="Lugar" sort="auto"/>
+                    <listheader label="Fecha" sort="auto"/>
+                </listhead>
+                <template name="model" var="p1">
+                    <listitem>
+                        <listcell label="@load(p1.id)" />
+                        <listcell label="@load(p1.nombre)" /> 
+                        <listcell label="@load(p1.descripcion)" /> 
+                        <listcell label="@load(p1.lugar)" /> 
+                        <listcell label="@load(p1.fecha)" /> 
+                    </listitem>
+                </template>
+            </listbox> 
+            <box  orient="horizontal">
+                <button id="EventoADD"  label="Agregar" href="EventoAdd.zul" image="/img/16x16/application_form_add.png" width="100px" height="35px"/>
+                <space />
+                <button label="Eliminar" image="/img/16x16/application_form_delete.png" width="100px" height="35px" onClick="@command('EliminarEvento')" />
+                <space />
+                <button id="editar" label="Editar" image="/img/16x16/application_form_edit.png" width="100px" height="35px" onClick="@global-command('showModalEditar')" />
+                
+         
+            </box>
+    </div>
+        
+</window>
+</zk>

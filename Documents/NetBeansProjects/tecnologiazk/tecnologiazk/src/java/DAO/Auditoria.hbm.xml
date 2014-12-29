@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2014 10:21:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Auditoria" table="auditoria" catalog="tecnologiazk">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" />
+        </property>
+        <property name="accion" type="string">
+            <column name="accion" length="45" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="modelo" length="45" />
+        </property>
+        <property name="campo" type="string">
+            <column name="campo" length="1000" />
+        </property>
+        <property name="campoNuevoValor" type="string">
+            <column name="campo_nuevo_valor" length="1000" />
+        </property>
+        <property name="usuarioId" type="java.lang.Long">
+            <column name="usuario_id" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<menubar id="menubar" width="100%" autodrop ="true" >
+    
+  <menu label="Sitios">
+    <menupopup>
+        <menuitem label="Sitios" href="Sitio.zul" />
+        <!--          href="MantCargos.zul" image="/img/16x16/administrator.png" -->
+
+        <menuseparator></menuseparator>
+        <menuitem label="Agregar Sitios" href="SitioAdd.zul" />                   
+    </menupopup>
+</menu> 
+<menu label="Rutas">
+    <menupopup>
+        <menuitem label=" Rutas" href="Ruta.zul"/>
+        <menuitem label="Agregar Rutas" href="RutaAdd.zul"/>
+    </menupopup>
+</menu>
+<menu label="eventos">
+    <menupopup>
+        <menuitem label=" Eventos" href="Evento.zul"/>
+        <menuitem label="Agregar Eventos" href="RutaAdd.zul"/>
+    </menupopup>
+</menu>
+</menubar>

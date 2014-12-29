@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+   <window id="modalEventoEditar" title="Editar Evento" border="normal" width="360px"
+    position="center,center" closable="true"
+    action="show: slideDown;hide: slideUp" 
+   apply="org.zkoss.bind.BindComposer, Controller.EmpleadorCargosDialog" 
+            viewModel="@id('vm') @init('UIVM.EventoEditaVM')">
+<vlayout>
+ 
+    <grid>
+        <rows>
+             <row>
+              Id:  <textbox  value="@load(vm.seleccionado.id)" width="150px"  />
+              Nombre:  <textbox  value="@bind(vm.seleccionado.nombre)" width="150px"  /> 
+            </row>
+            <row>
+              Lugar:  <textbox  value="@bind(vm.seleccionado.lugar)" width="150px"  />    
+              Descripcion:  <textbox  value="@bind(vm.seleccionado.descripcion)" width="150px"  /> 
+            </row>
+            
+        </rows>
+    </grid>
+</vlayout> 
+    <box  orient="vertical">
+    <button label="Aceptar" onClick="@command('EditarEvento')" width="100px" height="35px" image="/img/16x16/accept.png"/>
+    </box>
+</window>
+
+
+
+
+</zk>

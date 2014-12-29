@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Apeaime" contentType="text/html;charset=UTF-8"?>
+<?component name="Menu" macroURI="/MacroMenu.zul"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+ 	  
+    <window apply="org.zkoss.bind.BindComposer">
+       <Menu/>
+
+       <!--<gmaps id="mymap" width="1355px" height="610px" showSmallCtrl="true" lat="-27.334641" lng="-55.861101" zoom="15">
+     </gmaps>-->
+
+    </window>
+    
+    
+</zk>

@@ -1,0 +1,55 @@
+<?page title="Lista de rutas" contentType="text/html;charset=UTF-8"?>
+<?component name="Menu" macroURI="/MacroMenu.zul"?>
+<zk >
+<Menu/>
+<window id="sitio" title="Rutas" border="normal" apply="org.zkoss.bind.BindComposer, Controller.ModalDialogSitiosAdd" 
+            viewModel="@id('vm') @init('UIVM.RutaVM')">  
+
+    <div>
+        <div>
+            
+        </div>
+       <!-- <separator>-->
+            <groupbox height="40px" width="35%">
+                <space />
+                <label value="Numero Rutas" />
+                <space />
+                <space />
+                <textbox id="FiltroRuta" width="310px" cols="50" value="@bind(vm.rutaNombre)" onChange = "@command('doFilter')" instant="true"/> 
+                <space />
+                <space />
+           
+                <space spacing="20px" />
+                <space spacing="20px" />
+            </groupbox>
+        
+            <listbox id="ListaRutas" height="470px" model="@load(vm.rutalist)" selectedItem="@bind(vm.seleccionado)" >
+                        
+                <listhead sizable="true">
+                    <listheader label="Id" width="140px" sort="auto" />
+                    <listheader label="Nombre Sitio" sort="auto"/>
+                    <listheader label="Descripcion" sort="auto"/>
+
+                </listhead>
+                <template name="model" var="p1">
+                    <listitem>
+                        <listcell label="@load(p1.id)" />
+                        <listcell label="@load(p1.nombre)" /> 
+                        <listcell label="@load(p1.descripcion)" /> 
+                       
+                    </listitem>
+                </template>
+            </listbox> 
+            <box  orient="horizontal">
+                <button id="RutaADD"  label="Agregar" href="RutaAdd.zul" image="/img/16x16/application_form_add.png" width="100px" height="35px"/>
+                <space />
+                <button label="Eliminar" image="/img/16x16/application_form_delete.png" width="100px" height="35px" onClick="@command('EliminarSitio')" />
+                <space />
+                <button id="editar" label="Editar" image="/img/16x16/application_form_edit.png" width="100px" height="35px" onClick="@global-command('showModalEditar')" />
+                
+         
+            </box>
+    </div>
+        
+</window>
+</zk>

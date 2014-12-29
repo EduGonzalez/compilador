@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2014 10:21:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Evento" table="evento" catalog="tecnologiazk">
+        <id name="id" type="long" >
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="1000" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="lugar" length="100" />
+        </property>
+        <property name="latitud" type="string">
+            <column name="latitud" length="45" />
+        </property>
+        <property name="longitud" type="string">
+            <column name="longitud" length="45" />
+        </property>
+        <property name="usuarioId" type="java.lang.Long">
+            <column name="usuario_id" />
+        </property>
+        <property name="habilitado" type="java.lang.Integer">
+            <column name="habilitado" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="fecha" length="10" />
+        </property>
+        <property name="validez" type="date">
+            <column name="validez" length="10" />
+        </property>
+        <property name="hora" type="time">
+            <column name="hora" length="8" />
+        </property>
+    </class>
+</hibernate-mapping>

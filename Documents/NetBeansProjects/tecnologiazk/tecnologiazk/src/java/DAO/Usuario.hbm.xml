@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 11, 2014 10:21:31 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Usuario" table="usuario" catalog="tecnologiazk">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="100" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" />
+        </property>
+        <property name="latitud" type="string">
+            <column name="latitud" length="45" />
+        </property>
+        <property name="longitud" type="string">
+            <column name="longitud" length="45" />
+        </property>
+        <property name="fecha" type="timestamp">
+            <column name="fecha" length="19" />
+        </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50" />
+        </property>
+        <property name="habilitado" type="java.lang.Integer">
+            <column name="habilitado" />
+        </property>
+        <property name="facebook" type="java.lang.Long">
+            <column name="facebook" />
+        </property>
+    </class>
+</hibernate-mapping>
