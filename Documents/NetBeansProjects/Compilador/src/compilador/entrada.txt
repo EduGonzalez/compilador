@@ -1,0 +1,80 @@
+INICIO
+
+CREATE 
+TABLE 
+tabla1
+( 
+idtabla1
+INT
+(
+10
+) NOT_NULL PRIMARY_KEY AUTO_INCREMENT
+,
+nombretabla1
+ CHAR
+(
+100
+)
+,
+apellidotabla1
+ CHAR
+(
+100
+)
+,
+tablafecha1
+ DATE
+,
+fechaingreso1
+DATE
+,
+cedula1
+INT
+(
+9
+)
+)
+
+
+;
+
+CREATE 
+TABLE 
+tabla2
+( 
+idtabla2
+INT
+(
+10
+) NOT_NULL PRIMARY_KEY AUTO_INCREMENT
+,
+nombretabla2
+ CHAR
+(
+100
+)
+,
+apellidotabla2
+ CHAR
+(
+100
+)
+,
+fechatabla2
+ DATE
+,
+fechaingreso2
+DATE
+,
+cedula2
+INT
+(
+9
+)
+,
+Foreign Key (cedula2) References tabla1 (idtabla1) 
+)
+;
+
+END
+FIN

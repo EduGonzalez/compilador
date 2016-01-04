@@ -1,0 +1,295 @@
+//#### Importamos las clases necesarias del paquete cup.jar
+package compilador;
+import java_cup.runtime.*;
+import java_cup.Lexer; 
+import java.io.*;
+
+//#### Aquí ponemos el código que se usará para comenzar a parsear la entrada.*/
+parser code {:
+
+
+    public static void main(String args[]) throws Exception {
+        new parser(new Yylex(System.in)).parse();
+    }
+
+    public void unrecovered_syntax_error(Symbol expr_e) throws java.lang.Exception{
+        System.out.println("ERROR FATAL");
+    }
+        
+    public void syntax_error(Symbol expr_e) {
+        report_error("Error de sintaxis en la GRAMATICA - Linea: " + expr_e.left, null);
+    }
+
+
+
+:}
+
+  action code  {: 
+
+public String dato_empaquetado="";
+public String tabla="";
+public String tipo="";
+public String retornoHash="";
+public String tablaForeignReference="";
+public String campo="";
+public String campoForeignReference="";
+public String campoForeignOriginal="";
+public int bandera=0;
+
+EscribirConf escriConf = new EscribirConf();
+EscribirReveng escriReveng = new EscribirReveng();
+EscribirVarios escriVAR = new EscribirVarios();
+
+:}
+
+
+//#### FIN PARSER CODE
+
+//#### TERMINALES
+    terminal CREATE, INICIO, FINSTMTS, END, TABLE, ID, PARI, PARD, FIN, CHAR, TIME, DATE, COMA, length, NOT_NULL, PRIMARY_KEY, AUTO_INCREMENT, VARCHAR, INT, Foreign, Key, References;
+
+//#### NO TERMINALES
+   non terminal  Stmt, BigBang, main, Columnas, Columna, ColumnaP, def_columna, opciones, opcion, FOREIGN, def_referencias, index, def_Foreigns; 
+
+
+//#### Aquí especificamos la precedencia de los operadores. */
+//#### REGLAS DE PRODUCCION
+
+
+//No Terminal    opcion 1           opcion 2
+
+BigBang ::= INICIO{://--------------------------------------------------------------
+
+                //*********cAMPOOOO HIBERNATE CONF***************************
+                    escriConf.EscribirCabezeraConf();   
+                //************************************************
+
+                //**************REVENG*******************************
+                   escriReveng.EscribirCabezeraReveng();
+                //*********************************************
+
+                //**********VARIOS*****************************************
+
+                //**modal****
+                    escriVAR.EscribirYaEstanModal();
+
+                //**menu****
+                    escriVAR.Escribir1menu();
+
+                //--------------------------------------------------------------:} 
+
+
+                main END {://*********cAMPOOOO HIBERNATE CONF***************************
+                    escriConf.EscribirFINConf(tabla);      
+                //************************************************
+
+                //**************REVENG*******************************
+                    escriReveng.EscribirFINReveng(tabla);
+                //*********************************************
+
+                //**********VARIOS*****************************************
+
+                //**modal****
+                    escriVAR.EscribirFINModal();
+                //**menu****
+                    escriVAR.Escribir3menu();
+                //--------------------------------------------------------------:}
+
+                FINSTMTS ;
+
+main ::= Stmt | Stmt main ;
+
+Stmt ::= CREATE             {:   dato_empaquetado="";      
+                                 dato_empaquetado=dato_empaquetado+"CREATE ";  :} 
+
+         TABLE              {:   dato_empaquetado=dato_empaquetado+"TABLE ";  :} 
+
+         ID:nombre    {:   dato_empaquetado=dato_empaquetado+nombre;  tabla=(String) nombre; :}
+
+         PARI               {:   dato_empaquetado=dato_empaquetado+"(";  :}
+         Columnas 
+         PARD {:   dato_empaquetado=dato_empaquetado+")";  :} 
+         FIN {:   dato_empaquetado=dato_empaquetado+";"; 
+
+       System.out.println(new CrearTabla(dato_empaquetado));
+
+ 
+        System.out.println(dato_empaquetado);  
+        System.out.println("**************EPRIMIRR*******************************************");
+        s.imprimir();
+        
+        //**********ESCRIBIR VISTA ZUL*****************
+        Escribir escri = new Escribir();
+        escri.EscribirCabezeraTabla(tabla);
+        s.imprimirCabezeraABM(tabla);
+        escri.EscribirDespuesCabezera(tabla);
+        s.imprimirDatosABM(tabla);
+        escri.EscribirDespuesDatoCabezera(tabla);
+        s.imprimirLabelEditarFinal(tabla);
+        escri.EscribirDespuesLabelEditarFinal(tabla);
+        s.imprimirDatosEditarFinal(tabla);
+        escri.EscribirDespuesDatosEditarFinal(tabla);
+        //************************************************
+        
+        //*************ESCRIBIR JAVA HBM ****************
+        EscribirJAVA escriJAVA = new EscribirJAVA();
+        escriJAVA.EscribirCabezeraJAVA(tabla);
+        s.imprimirVariableHBMJava(tabla);
+        escriJAVA.EscribirDescpuesCampoVariableJAVA(tabla);
+        s.imprimirConstructorHBMJava(tabla);
+        escriJAVA.EscribirDespuesCampoConstructorJAVA(tabla);
+        s.imprimirConstructorVariablesHBMJava(tabla);
+        escriJAVA.EscribirDesùesCampoDentroConstructorJAVA(tabla);
+        s.imprimirSetGetHBMJava(tabla);
+        escriJAVA.EscribirDespuesGetSetJAVA(tabla);
+        //**************************************************
+
+        //*********HBM***************************************
+        EscribirHBM escriHBM = new EscribirHBM();
+        escriHBM.EscribirCabezeraHBM(tabla);
+        s.imprimirVariablesHBM(tabla);
+        escriHBM.EscribirFinHBM(tabla);
+        //****************************************************
+
+        //*********cAMPOOOO HIBERNATE CONF***************************
+            //EscribirConf escriConf = new EscribirConf();
+            //escriConf.EscribirCabezeraConf(tabla);
+        escriConf.EscribirTablaNuevaConf(tabla);
+            //escriConf.EscribirFINConf(tabla);      
+        //************************************************
+
+        //**************REVENG*******************************
+            //EscribirReveng escriReveng = new EscribirReveng();
+            //escriReveng.EscribirCabezeraReveng(tabla);
+        escriReveng.EscribirTablaNuevaReveng(tabla);
+            //escriReveng.EscribirFINReveng(tabla);
+        //*********************************************
+
+        //****************ESCRIBIR VM*********************************
+        EscribirVM escriVM = new EscribirVM();
+        escriVM.EscribirCabezeraVM(tabla);
+        s.imprimirVariablesVM(tabla);
+        escriVM.EscribirSeleccionadoGetSetVM(tabla);
+        escriVM.EscribirCabezera2VM(tabla);
+        s.imprimirPKVM(tabla);
+        s.imprimirGuardarCamposVM(tabla);
+        escriVM.EscribirSaveVM(tabla);
+        escriVM.EscribirEliminarVM(tabla);
+        escriVM.EscribirSaveNuevoVM(tabla);
+        s.imprimirSaveNuevoCampoVM(tabla);
+        escriVM.EscribirSaveVM(tabla);
+        s.imprimirDoFilter(tabla);
+        
+        //*******************************************************
+
+        //*********MANAGERR****************************************
+        EscribirManager escriManager = new EscribirManager();
+        escriManager.EscribirCabezeraManager(tabla);
+        s.imprimirGetBYidManager(tabla);
+        s.imprimirGetObjetoManager(tabla);
+        escriManager.EscribirSaveManager(tabla);
+        escriManager.EscribirDeleteManager(tabla);
+        //*****************************************************
+
+        //***************Agregada***********************************
+        EscribirAgregar escriADD = new EscribirAgregar();
+        escriADD.EscribirCabezeraAGREGAR(tabla);
+            //s.imprimirCampoCabezeraAGREGAR(tabla);
+        escriADD.EscribirDespuesCampoCabezeraAGREGAR(tabla);
+        s.imprimirCampoDatosAGREGAR(tabla);
+        escriADD.EscribirDespuesDatosAGREGAR(tabla);
+        //*********************************************************
+
+       //**********VARIOS*****************************************
+            //EscribirVarios escriVAR = new EscribirVarios();
+       //**modal****
+            //escriVAR.EscribirYaEstanModal();
+       escriVAR.EscribirAgregarModal(tabla);
+            //escriVAR.EscribirFINModal();
+       //**menu****
+            //escriVAR.Escribir1menu();
+       escriVAR.Escribir2menu(tabla);
+            //escriVAR.Escribir3menu();
+            //*******************************************************
+         :};
+
+Columnas ::= Columna COMA {: dato_empaquetado=dato_empaquetado+", "; :} def_Foreigns | Columna COMA {: dato_empaquetado=dato_empaquetado+", "; :} Columnas | Columna;
+
+Columna ::=  ID:nombre {:campo=(String) nombre; dato_empaquetado=dato_empaquetado+" "+nombre+" "; :}  ColumnaP ;
+
+ColumnaP ::= def_columna | def_columna opciones;
+
+def_columna ::=     CHAR    {:dato_empaquetado=dato_empaquetado+" char ";
+                             tipo="String";
+                             s.insertar(tabla, campo, "String");:} 
+
+                            PARI {: dato_empaquetado=dato_empaquetado+" ( ";:} length:longuitud {: dato_empaquetado=dato_empaquetado+longuitud;:} PARD {: dato_empaquetado=dato_empaquetado+" ) ";:} 
+
+                            
+                    | VARCHAR       {:  dato_empaquetado=dato_empaquetado+" VARCHAR ";      
+                                        tipo="String";
+                                        s.insertar(tabla, campo, "String");:}  
+                                PARI {: dato_empaquetado=dato_empaquetado+" ( ";:} length:longuitud {: dato_empaquetado=dato_empaquetado+longuitud;:} PARD {: dato_empaquetado=dato_empaquetado+" ) ";:}
+
+
+                    | DATE {: dato_empaquetado=dato_empaquetado+" DATE ";                          
+                              tipo="Date";
+                                 s.insertar(tabla, campo, "Date");:}
+
+                    | TIME {:dato_empaquetado=dato_empaquetado+" TIME ";
+                             tipo="Date";
+                              s.insertar(tabla, campo, "Date","0", "time");:}
+
+                    | INT {:s.insertar(tabla, campo, "Integer"); 
+                             tipo="Integer";
+                             dato_empaquetado=dato_empaquetado+" INT ";:} 
+                                PARI {: dato_empaquetado=dato_empaquetado+" ( ";:} length:longuitud {: dato_empaquetado=dato_empaquetado+longuitud;:} PARD {: dato_empaquetado=dato_empaquetado+" ) ";:}; 
+
+opciones ::= opcion | opcion opciones;
+ 
+opcion ::= NOT_NULL {: dato_empaquetado=dato_empaquetado+" NOT NULL ";:} | PRIMARY_KEY {: dato_empaquetado=dato_empaquetado+" PRIMARY KEY "; s.insertar(tabla, campo, tipo, "1");:} | AUTO_INCREMENT {: dato_empaquetado=dato_empaquetado+" AUTO_INCREMENT ";:};
+
+def_Foreigns ::= FOREIGN | FOREIGN COMA {: dato_empaquetado=dato_empaquetado+" , ";:} def_Foreigns;
+
+FOREIGN ::= Foreign {: dato_empaquetado=dato_empaquetado+" Foreign ";:} Key {: dato_empaquetado=dato_empaquetado+" Key ";:} PARI {: dato_empaquetado=dato_empaquetado+" ( ";:} ID:nombre {:dato_empaquetado=dato_empaquetado+" "+nombre+" "; campoForeignOriginal=(String)nombre; ss=s.buscar(campoForeignOriginal);
+
+             if (ss==null){
+             System.out.println("ERROR FATAL EN EL FOREIGN KEY - NO ENCONTRADO");
+             return null;
+             }else{
+             System.out.println("----------------------------------------------------RESULTADOOOO = " + ss.valor.toString()+"  Aceptado");
+                //s.imprimir();
+             } :} 
+
+            PARD {: dato_empaquetado=dato_empaquetado+" ) ";:} def_referencias;
+
+def_referencias ::= References {: dato_empaquetado=dato_empaquetado+"References ";:} 
+           
+             ID:nombre {:dato_empaquetado=dato_empaquetado+" "+nombre+" ";
+
+              tablaForeignReference=(String) nombre;
+              String res="";
+
+            //******
+            res=s.buscarTablaForeign(tablaForeignReference);
+            
+             if (res=="no"){
+             System.out.println("Error Fatalisimo en el Foreign Key Reference (Tabla de referencia no existe)");
+             return null;
+             }else{System.out.println("----------------------------------------------------TABLA FOREIGN  = " + "  Aceptado"); 
+             }  
+                :} 
+                PARI {: dato_empaquetado=dato_empaquetado+" ( ";:} index PARD {: dato_empaquetado=dato_empaquetado+" ) ";:};
+
+index ::= ID:nombre  {: dato_empaquetado=dato_empaquetado+" "+nombre+" ";
+
+                        campoForeignReference=(String) nombre;
+
+                        ss=s.buscar(campoForeignReference);
+            
+             if (ss==null){
+             System.out.println("Error Fatalisimo en el Foreign Key Reference (Campo de referencia no existe)");
+             return null;
+             }else{System.out.println("----------------------------------------------------RESULTADOOOO = " + ss.valor.toString() +"  Aceptado"); 
+             }:};
+ 
